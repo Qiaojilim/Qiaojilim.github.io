@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to my blog website">
 <meta name="theme-color" content="#000">
 <title>Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1602894459494">
+<link rel="shortcut icon" href="/favicon.ico?v=1602898792589">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -574,21 +574,243 @@ https://kylase.github.io/CircosAPI/os-x-installation-guide/&lt;/p&gt;
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/How to plot synteny blocks by CIRCOS/"" data-c="
-          &lt;p&gt;**Creating multiple plots for one genome such as heatmap, histgram, line map and so on.&lt;br&gt;
+          &lt;p&gt;&lt;strong&gt;Creating multiple plots for one genome such as heatmap, histgram, line map and so on.&lt;/strong&gt;&lt;br&gt;
 -Input files:&lt;br&gt;
+put all file in the current dir: ~/app/circos&lt;br&gt;
 i): karyotype.genome.txt  format is : &amp;quot;chr - ID LABEL START END COLOR&amp;quot;&lt;br&gt;
 &lt;code&gt;chr - aco1 1 0 37743429 rdylbu-11-div-1&lt;/code&gt;&lt;br&gt;
-Here the color of chromosome at the last col of karyotype.genome.txt file, we can serch color on the web: http://colorbrewer2.org/&lt;br&gt;
+Here the color of chromosome at the last col of karyotype.genomeA.txt file, we can serch color on the web: http://colorbrewer2.org/&lt;br&gt;
 The format of color is: &lt;code&gt;Palette-Numcolors-Type-Idx&lt;/code&gt;:&lt;br&gt;
 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;P&lt;/mi&gt;&lt;mi&gt;a&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Palette&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.13889em;&#34;&gt;P&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: name of color system like : gnbu&lt;br&gt;
 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;N&lt;/mi&gt;&lt;mi&gt;u&lt;/mi&gt;&lt;mi&gt;m&lt;/mi&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Numcolors&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10903em;&#34;&gt;N&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;u&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;m&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;c&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.01968em;&#34;&gt;l&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;o&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.02778em;&#34;&gt;r&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;s&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: number of data classes, eg: 3,4,5,6,11&lt;br&gt;
 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mi&gt;p&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Type&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8777699999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.13889em;&#34;&gt;T&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.03588em;&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;p&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;e&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: = nature of your data : div~(diverging), seq~(sequential), qual~(qualitative)&lt;br&gt;
 &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mi&gt;I&lt;/mi&gt;&lt;mi&gt;d&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;Idx&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.69444em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.07847em;&#34;&gt;I&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;: cchoosing which index of color to out of Numcolors.&lt;/p&gt;
-&lt;p&gt;ii): create&lt;br&gt;
-ticks.conf to contain related parameters.&lt;/p&gt;
-&lt;p&gt;ii)create circos.conf to input all parameters for plotting&lt;br&gt;
-&lt;code&gt;touch circos.conf&lt;/code&gt;&lt;br&gt;
-W&lt;/p&gt;
+&lt;p&gt;ii): creating etc foldr under  ~/app/circos to contain all other configures files, like links.conf and ticks.con&lt;br&gt;
+iii): creating ticks.conf in etc folder to input all parameters for plotting ticks as:&lt;br&gt;
+&lt;code&gt;# this means the code starts from the next line&lt;br&gt;
+show_ticks          = yes&lt;br&gt;
+show_tick_labels    = no&lt;br&gt;
+&lt;ticks&gt;&lt;br&gt;
+radius           = 1r&lt;br&gt;
+color            = black&lt;br&gt;
+thickness        = 2p&lt;br&gt;
+multiplier       = 1e-6&lt;br&gt;
+format           = %d # %d&lt;br&gt;
+&lt;tick&gt;&lt;br&gt;
+spacing        = 1u&lt;br&gt;
+size           = 5p&lt;br&gt;
+&lt;/tick&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;tick&amp;gt;
+thickness      = 4p
+spacing        = 5u
+size           = 10p
+show_label     = yes
+label_size     = 10p
+label_offset   = 10p
+format         = %d
+&amp;lt;/tick&amp;gt;
+&amp;lt;/ticks&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;creating circos.conf to contain all aprameters and include ticks.conf by adding &amp;quot;&amp;lt;&amp;lt;include ./etc/ticks.conf&amp;gt;&amp;gt;&amp;quot;:&lt;br&gt;
+&lt;code&gt;#this means the code starts from the next line&lt;br&gt;
+show_scatter   = yes&lt;br&gt;
+show_line      = yes&lt;br&gt;
+show_histogram = yes&lt;br&gt;
+show_heatmaps*   = yes&lt;br&gt;
+show_tile      = yes&lt;br&gt;
+show_highlight = yes&lt;br&gt;
+use_rules      = yes&lt;br&gt;
+#specify input file that contains length of each chromosome of genome&lt;br&gt;
+karyotype = karyotype.acorus.txt&lt;br&gt;
+#specify the order of chromosome&lt;br&gt;
+chromosomes_order = aco1,aco2,aco3,aco4,aco5,aco6,aco7,aco8,aco9,aco10,aco11,aco12&lt;br&gt;
+chromosomes_units = 1000000&lt;br&gt;
+#chromosomes_reverse = /aco/ #reverse&lt;br&gt;
+#chromosomes_scale = /aco/=0.7rn,/anc/=0.3rn&lt;br&gt;
+#chromosomes_display_default = no&lt;br&gt;
+#chromosomes = /aco/;anc1&lt;br&gt;
+#chromosomes_radius = /aco/:0.8r&lt;br&gt;
+chromosomes_color = aco1=rdylgn-11-div-1,aco2=rdylgn-11-div-2,aco3=rdylgn-11-div-3,aco4=rdylgn-11-div-4,aco5=rdylgn-11-div-5,aco6=rdylgn-11-div-6,aco7=rdylgn-11-div-7,aco8=rdylgn-11-div-8,aco9=rdylgn-11-div-9,aco10=rdylgn-11-div-10,aco11=rdylgn-11-div-11,aco12=[#00441b]&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;&amp;lt;include ./etc/ticks.conf&amp;gt;&amp;gt;
+
+&amp;lt;ideogram&amp;gt;
+&amp;lt;spacing&amp;gt;
+default = 1u
+&amp;lt;/spacing&amp;gt;
+
+radius           = 0.90r
+thickness        = 20p
+fill             = yes
+stroke_color     = dgrey
+stroke_thickness = 2p
+
+show_label     = yes #show label
+label_font     = default #font
+label_radius   = dims(ideogram,radius) + 0.08r #location
+label_size     = 16 # font size
+label_parallel = yes 
+
+label_format   = eval(sprintf(&amp;quot;%s&amp;quot;,var(chr))) # format
+&amp;lt;/ideogram&amp;gt;
+&amp;lt;&amp;lt;include ./etc/links.conf&amp;gt;&amp;gt;
+&amp;lt;image&amp;gt;
+dir*    = .    # output dir
+file*	= Acorus.circos.png
+radius* = 400p # ridus of pic
+svg*    = no   # whether generating svg file
+#angle_offset* = -55
+&amp;lt;&amp;lt;include etc/image.conf&amp;gt;&amp;gt;
+&amp;lt;/image&amp;gt;
+
+&amp;lt;plots&amp;gt;
+&amp;lt;plot&amp;gt;
+type    = heatmap
+file    = genes_num.txt
+color   = blues-9-seq
+r1      = 0.70r
+r0      = 0.61r
+&amp;lt;/plot&amp;gt;
+
+&amp;lt;plot&amp;gt;
+type = scatter
+fill_color       = black 
+stroke_color     = black
+glyph            = circle
+glyph_size       = 5 
+file = genes_num.txt
+r1   = 0.80r
+r0   = 0.71r
+&amp;lt;/plot&amp;gt;
+
+&amp;lt;plot&amp;gt;
+type = histogram
+file = genes_num.txt
+fill_color = blue 
+r1   = 0.89r
+r0   = 0.81r
+&amp;lt;/plot&amp;gt;
+&amp;lt;/plots&amp;gt;
+
+&amp;lt;&amp;lt;include etc/colors_fonts_patterns.conf&amp;gt;&amp;gt;
+&amp;lt;&amp;lt;include etc/housekeeping.conf&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;iv): preparing input file &amp;quot;genes_num.txt&amp;quot; for heatmap, scatter, line and histpgram&lt;br&gt;
+circos requires the format of input format is as &lt;code&gt;chr start end value [options]&lt;/code&gt; which is 4 col of BED  file in fact.&lt;br&gt;
+First of all, we need to install bedtools  by &lt;code&gt;conda install -c bioconda bedtools&lt;/code&gt;. (if path is not included in mac than we need to add it)&lt;br&gt;
+I just choose first 3 cols (chr, strat, end) of genome&#39;s BED after using jcvi as &amp;quot;genes.bed&amp;quot; and be careful that the &lt;strong&gt;first col of genes.bed is coresponding to the ID col of karyotype.genomeA.txt file&lt;/strong&gt;. (if this is not coreponding, then we will get number zero on the last col of &amp;quot;genes_num.txt&amp;quot; file) For example, in genes.bed which should look like: &lt;code&gt;aco1	1526	2561&lt;/code&gt;. After that we use bedtool to create windows with setting 500kb by the follwing command:&lt;br&gt;
+&lt;code&gt;cut -d &#39; &#39; -f 3,6 karyotype.genomeA.txt | tr &#39; &#39; &#39;\t&#39; &amp;gt; genomeA.genome&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;bedtools makewindows -g genomeA.genome -w 500000 &amp;gt; genomeA.windows&lt;/code&gt;&lt;br&gt;
+Last step to collect info:&lt;br&gt;
+&lt;code&gt;bedtools coverage -a genomeA.windows -b genes.bed | cut -f 1-4 &amp;gt; genes_num.txt&lt;/code&gt;&lt;br&gt;
+Therefor, genes_num.txt is our input file.&lt;/p&gt;
+&lt;p&gt;v): Eventually, we run the implement the command:&lt;br&gt;
+&lt;code&gt;circos -conf circos.conf&lt;/code&gt;&lt;br&gt;
+we will get a picture with multiple plots for genome A&lt;br&gt;
+reference link :&lt;br&gt;
+https://www.jianshu.com/p/ea3a8933ace9&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Plotting synteny blocks between two different genomes&lt;/strong&gt;&lt;br&gt;
+Except for all files above, we need to create a link.conf under etc folder to contain all parameters for plotting and a link txt file including all syntenys under circos folder.&lt;br&gt;
+i): the format of link txt file is at least 6 cols as &lt;code&gt;chr1 start1 end1 chr2 start2 end2 [options]&lt;/code&gt;&lt;br&gt;
+Here we need to use JCVI to get &lt;code&gt;anc.aco.anchors.simple&lt;/code&gt; file and than we have to replace the genename of anchor file as the start and end loction info which is the links input format of circos. For that, we use &lt;code&gt;simple2links.py&lt;/code&gt; from GengzhouXu&#39;s github https://github.com/xuzhougeng/myscripts&lt;br&gt;
+&lt;code&gt;simple2links.py anc.aco.anchors.simple&lt;/code&gt;&lt;br&gt;
+So we get an output files called &lt;code&gt;anc.aco.anchors.simple_link.txt&lt;/code&gt;&lt;br&gt;
+But we need to chnage the chr names of the two genomes anc and aco as &amp;quot;anc&amp;quot; + &amp;quot;chr&amp;quot;, &amp;quot;aco&amp;quot; + &amp;quot;chr&amp;quot; that is coresponding to the &lt;code&gt;karyotype = karyotype.anc.txt,karyotype.aco.txt&lt;/code&gt; from circos.conf&lt;br&gt;
+ii): links.conf&lt;br&gt;
+&lt;code&gt;&lt;br&gt;
+&lt;links&gt;&lt;br&gt;
+&lt;link&gt;&lt;br&gt;
+file          = ancestor1.acorus.anchors.simple_link.txt&lt;br&gt;
+radius        = 0.65r&lt;br&gt;
+color         = blue_a4&lt;br&gt;
+ribbon = yes&lt;br&gt;
+bezier_radius = 0r&lt;br&gt;
+&lt;rules&gt;&lt;br&gt;
+&lt;rule&gt;#rule here is setting different colors for links on conditions&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc1&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-1&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc2&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-2&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc3&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-3&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc4&amp;quot;&lt;br&gt;
+color=165,105,189&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc5&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-5&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc6&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-6&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;rule&gt;&lt;br&gt;
+condition = var(chr1) eq &amp;quot;anc7&amp;quot;&lt;br&gt;
+color=rdylgn-7-div-7&lt;br&gt;
+&lt;/rule&gt;&lt;br&gt;
+&lt;/rules&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;/link&amp;gt;
+&amp;lt;/links&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;iii): create a new &lt;code&gt;circos.conf&lt;/code&gt; in the current circos folder as&lt;br&gt;
+&lt;code&gt;# the real code is from the next line, do not copy this lie into circos.conf file&lt;br&gt;
+karyotype = karyotype.ancestor1_resize.txt,karyotype.acorus.txt&lt;br&gt;
+chromosomes_order = aco12,aco11,aco10,aco1,aco4,aco9,aco8,aco7,aco2,aco6,aco3,aco5&lt;br&gt;
+chromosomes_units = 1000000# this is the unit of chr, 1000000 = 1000000kb = 1u&lt;br&gt;
+chromosomes_reverse = /aco/&lt;br&gt;
+chromosomes_scale = /aco/=0.7rn,/anc/=0.3rn&lt;br&gt;
+#chromosomes_display_default = no&lt;br&gt;
+#chromosomes = /aco/;anc1&lt;br&gt;
+chromosomes_radius = /anc/:0.8r&lt;br&gt;
+&amp;lt;&amp;lt;include ./etc/ticks.conf&amp;gt;&amp;gt; #####this command inlude the ticks.conf under etc folder&lt;br&gt;
+&lt;ideogram&gt;&lt;br&gt;
+&lt;spacing&gt;&lt;br&gt;
+default = 1u&lt;br&gt;
+#to get the two genomes symmetric outlet, aco1 face anc1, aco12 face anc7&lt;br&gt;
+&lt;pairwise aco1 anc1&gt;&lt;br&gt;
+spacing = 10u&lt;br&gt;
+&lt;/pairwise&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;pairwise aco12 anc7&amp;gt;
+spacing = 10u
+&amp;lt;/pairwise&amp;gt;
+&amp;lt;/spacing&amp;gt;
+
+radius           = 0.90r
+thickness        = 20p
+fill             = yes
+stroke_color     = dgrey
+stroke_thickness = 2p
+
+show_label     = yes #show label
+label_font     = default 
+label_radius   = dims(ideogram,radius) + 0.08r #
+label_size     = 16 # 
+label_parallel = yes # 
+
+label_format   = eval(sprintf(&amp;quot;%s&amp;quot;,var(chr))) # 
+&amp;lt;/ideogram&amp;gt;
+
+&amp;lt;&amp;lt;include ./etc/links.conf&amp;gt;&amp;gt; ##### this ocmmand is using links.conf under folder of etc
+
+&amp;lt;image&amp;gt;
+dir*    = .    # output dir, * means we can update this value of the variable
+radius* = 400p # 
+svg*    = no   # 
+angle_offset* = -55
+&amp;lt;&amp;lt;include etc/image.conf&amp;gt;&amp;gt;
+&amp;lt;/image&amp;gt;
+
+&amp;lt;&amp;lt;include etc/colors_fonts_patterns.conf&amp;gt;&amp;gt;
+&amp;lt;&amp;lt;include etc/housekeeping.conf&amp;gt;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The last step run command &lt;code&gt;circos -conf circos.conf&lt;/code&gt;&lt;br&gt;
+reference link:https://www.jianshu.com/p/1658e702ba17&lt;br&gt;
+we can split chr as several part by : http://www.360doc.com/content/19/1224/13/68068867_881784578.shtml&lt;/p&gt;
 ">How to use CIRCOS plot pairwise syteny blocks</a>
       </div>
       
