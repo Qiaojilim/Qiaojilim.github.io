@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to my blog website">
 <meta name="theme-color" content="#000">
 <title>How to use CIRCOS plot pairwise syteny blocks | Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1602899641710">
+<link rel="shortcut icon" href="/favicon.ico?v=1602899806254">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -1146,6 +1146,7 @@ or check my folder ~/circos/Acorus_anc1/newchr1_aco</p>
 &lt;li&gt;First, from oficial website: https://circos.ca dowload the lastest version of CIRCOS for Mac. And install it in a folder ~/app, if the path of that folder is not in the PATH  of mac then we need to add it to by the instructions of the link below&lt;br&gt;
 https://www.architectryan.com/2012/10/02/add-to-the-path-on-mac-os-x-mountain-lion/&lt;/li&gt;
 &lt;li&gt;We can use brew install libpng, libjpeg, freetype, libgd.&lt;br&gt;
+&lt;code&gt;&lt;br&gt;
 brew install libpng&lt;br&gt;
 brew install libjpeg&lt;br&gt;
 brew install freetype&lt;br&gt;
@@ -1154,6 +1155,7 @@ brew install libgd&lt;/li&gt;
 &lt;code&gt;circos -modules&lt;/code&gt;&lt;br&gt;
 &amp;quot; missing            Font::TTF::Font &amp;quot;&lt;br&gt;
 This mean we do not have Font::TTF::Font  module so we need to install all missing modules by:&lt;br&gt;
+&lt;code&gt;&lt;br&gt;
 sudo cpan&lt;br&gt;
 cpan[1]&amp;gt; install Config::General&lt;br&gt;
 cpan[2]&amp;gt; install Font::TTF::Font&lt;br&gt;
@@ -1161,12 +1163,14 @@ cpan[2]&amp;gt; install Font::TTF::Font&lt;br&gt;
 cpan[*]&amp;gt; exit&lt;br&gt;
 But we may missing module GD and GD::Polyline so that we can install it manaually by:&lt;br&gt;
 wget http://search.cpan.org/CPAN/authors/id/L/LD/LDS/GD-2.51.tar.gz&lt;br&gt;
+&lt;code&gt;&lt;br&gt;
 tar xfvz ./GD-2.51.tar.gz&lt;br&gt;
 cd GD-2.51/&lt;br&gt;
 perl Makefile.PL&lt;br&gt;
 make&lt;br&gt;
 sudo make install&lt;br&gt;
 in the end we test the sample of circos by:&lt;br&gt;
+&lt;code&gt;&lt;br&gt;
 cd ~/Software/circos/current/example&lt;br&gt;
 ./run&lt;br&gt;
 open circos.png&lt;br&gt;
