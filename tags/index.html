@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to my blog website">
 <meta name="theme-color" content="#000">
 <title>Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603411826147">
+<link rel="shortcut icon" href="/favicon.ico?v=1603412380797">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -698,7 +698,7 @@ r0   = 0.81r
 &amp;lt;&amp;lt;include etc/colors_fonts_patterns.conf&amp;gt;&amp;gt;
 &amp;lt;&amp;lt;include etc/housekeeping.conf&amp;gt;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;iv): preparing input file &amp;quot;genes_num.txt&amp;quot; for heatmap, scatter, line and histpgram&lt;br&gt;
+&lt;p&gt;iv): Preparing input file &amp;quot;genes_num.txt&amp;quot; for heatmap, scatter, line and histpgram&lt;br&gt;
 circos requires the format of input format is as &lt;code&gt;chr start end value [options]&lt;/code&gt; which is 4 col of BED  file in fact.&lt;br&gt;
 First of all, we need to install bedtools  by &lt;code&gt;conda install -c bioconda bedtools&lt;/code&gt;. (if path is not included in mac than we need to add it)&lt;br&gt;
 I just choose first 3 cols (chr, strat, end) of genome&#39;s BED after using jcvi as &amp;quot;genes.bed&amp;quot; and be careful that the &lt;strong&gt;first col of genes.bed is coresponding to the ID col of karyotype.genomeA.txt file&lt;/strong&gt;. (if this is not coreponding, then we will get number zero on the last col of &amp;quot;genes_num.txt&amp;quot; file) For example, in genes.bed which should look like: &lt;code&gt;aco1	1526	2561&lt;/code&gt;. After that we use bedtool to create windows with setting 500kb by the follwing command:&lt;br&gt;
@@ -761,7 +761,7 @@ color=rdylgn-7-div-7&lt;br&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;/link&amp;gt;
 &amp;lt;/links&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;iii): create a new &lt;code&gt;circos.conf&lt;/code&gt; in the current circos folder as&lt;br&gt;
+&lt;p&gt;iii): create a new &lt;code&gt;circos.conf&lt;/code&gt; in the current circos folder as:&lt;br&gt;
 &lt;code&gt;# the real code is from the next line, do not copy this lie into circos.conf file&lt;br&gt;
 karyotype = karyotype.ancestor1_resize.txt,karyotype.acorus.txt&lt;br&gt;
 chromosomes_order = aco12,aco11,aco10,aco1,aco4,aco9,aco8,aco7,aco2,aco6,aco3,aco5&lt;br&gt;
@@ -812,8 +812,8 @@ angle_offset* = -55
 &amp;lt;&amp;lt;include etc/colors_fonts_patterns.conf&amp;gt;&amp;gt;
 &amp;lt;&amp;lt;include etc/housekeeping.conf&amp;gt;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The last step run command &lt;code&gt;circos -conf circos.conf&lt;/code&gt;&lt;br&gt;
-reference link:https://www.jianshu.com/p/1658e702ba17&lt;br&gt;
+&lt;p&gt;The last step run command &lt;code&gt;circos -conf circos.conf&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Reference link&lt;/strong&gt;:https://www.jianshu.com/p/1658e702ba17&lt;br&gt;
 we can split chr as several part by : http://www.360doc.com/content/19/1224/13/68068867_881784578.shtml&lt;br&gt;
 or check my folder ~/circos/Acorus_anc1/newchr1_aco&lt;/p&gt;
 ">How to use CIRCOS plot pairwise syteny blocks</a>
