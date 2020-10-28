@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
 <meta name="theme-color" content="#000">
 <title>Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1603902976746">
+<link rel="shortcut icon" href="/favicon.ico?v=1603910860033">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -179,7 +179,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">4</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -252,6 +252,80 @@
         <div class="section-box mist">
           <section class="section bg-color posts-expand slide-down-in">
             
+  <article class="post-list-box  post box-shadow-wrapper">
+    <div class="article-wrapper bg-color">
+      <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/">
+      Publish and Packaging Python project - 1
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-10-26 22:26:14">2020-10-26</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>5<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>682<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+      <div class="post-body">
+        
+        
+          
+            <!-- 没有手动摘要切开启了自动摘要,则根据配置筛除摘要内容 -->
+            
+            
+              
+              
+              
+            
+              
+              
+              
+            
+              
+              
+              
+            
+            
+              <p><p>If we want to publish a python software and let other people to use our tool as well, then we need to package our code files and than publish it.</p>
+<h2 id="layout-of-package">Layout of package</h2>
+<p>packaging_tutorial<br>
+
+                
+              <p>
+            
+          
+        
+        
+        <div class="post-button text-center">
+          <a class="btn language" data-lan="read-more" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/" rel="contents">
+            阅读全文 »
+          </a>
+        </div>
+        
+      </div>
+      
+        <footer class="post-footer">
+          <div class="post-eof"></div>
+        </footer>
+      
+    </div>
+  </article>
+
   <article class="post-list-box  post box-shadow-wrapper">
     <div class="article-wrapper bg-color">
       <section class="post-header">
@@ -727,6 +801,104 @@
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/"" data-c="
+          &lt;p&gt;If we want to publish a python software and let other people to use our tool as well, then we need to package our code files and than publish it.&lt;/p&gt;
+&lt;h2 id=&#34;layout-of-package&#34;&gt;Layout of package&lt;/h2&gt;
+&lt;p&gt;packaging_tutorial&lt;br&gt;
+|———— LICENSE&lt;br&gt;
+|———— README&lt;br&gt;
+|———— example_pkg&lt;br&gt;
+|     |________   _&lt;em&gt;init _&lt;/em&gt;.py&lt;br&gt;
+|———— setup.py&lt;br&gt;
+|———— test&lt;br&gt;
+Once we create this structure, we need to &lt;code&gt;cd packaging_tutorial&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Project structure needs to be in place. Usually, the root of the repository contains a folder with the name of the repository — this is where the core project code should be. What’s outside of this folder is the extra code that’s necessary to run and build the package (tests, documentation, etc.)&lt;/li&gt;
+&lt;li&gt;The core folder should include one (or more) module(s) and an _&lt;em&gt;init&lt;/em&gt;_.py file which imports the classes/functions you’ll want the end user to have access to. This file can also include the version of the package, to make it easily accessible to the end user.&lt;/li&gt;
+&lt;li&gt;example_pkg :  _&lt;em&gt;init _&lt;/em&gt;.py  files are required to make Python treat directories containing the file as packages. _&lt;em&gt;init&lt;/em&gt;_.py can just be an empty file, more info please check :  &lt;a href=&#34;https://docs.python.org/3/tutorial/modules.html#packages&#34;&gt;python packeges and modules&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;test folder : containg all unit test files, we can leav it empty now.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;choose-license&#34;&gt;Choose license&lt;/h3&gt;
+&lt;p&gt;The usual licenses for open sources projects are GNU, MIT, BSD, detalied see &lt;a href=&#34;https://choosealicense.com/&#34;&gt;License&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;readme-file&#34;&gt;README file&lt;/h3&gt;
+&lt;p&gt;A README is a txt file that contains informations which is commonly required to understand what the project is about.  The most common format is &lt;a href=&#34;https://en.wikipedia.org/wiki/Markdown&#34;&gt;Markdown&lt;/a&gt;&lt;br&gt;
+I usually use online readme.md editor &lt;a href=&#34;https://dillinger.io&#34;&gt;Dillinger&lt;/a&gt;&lt;br&gt;
+Instruction to write a beautiful README.md please check my another article and here is an example of my readme.md&lt;br&gt;
+&lt;a href=&#34;https://github.com/Qiaojilim/raccroche_demo&#34;&gt;Example of README.md&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;create-a-setuppy-file&#34;&gt;Create a Setup.py file&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;from setuptools import setup
+def parse_requirements(requirements):
+    &amp;quot;&amp;quot;&amp;quot;
+    Returns the list of requirements found in the requirements file
+    &amp;quot;&amp;quot;&amp;quot;
+    with open(requirements, &amp;quot;r&amp;quot;) as req_file:
+        return [l.strip(&#39;\n&#39;) for l in req_file if l.strip(&#39;\n&#39;)
+                and not l.startswith(&#39;#&#39;)]
+#pacages: each folder that with a __init__.py file in its dir, here contigs_alg is a #subofolder under raccroche with __init__.py
+packages = [&#39;raccroche&#39;, &#39;raccroche.contigs_alg&#39;] 
+requires = parse_requirements(&amp;quot;requirements.txt&amp;quot;)
+#scripts 
+scripts = [&#39;bin/raccroche_main&#39;] 
+
+classifiers = [
+    &amp;quot;Environment :: Console&amp;quot;,
+    &amp;quot;Intended Audience :: Science/Research&amp;quot;,
+    &amp;quot;License :: OSI Approved :: BSD License&amp;quot;,
+    &amp;quot;Programming Language :: Python :: 3&amp;quot;,
+    &amp;quot;Operating System :: OS Independent&amp;quot;,
+    &amp;quot;Topic :: Scientific/Engineering :: Bio-Informatics&amp;quot;,
+]
+
+with open(&#39;README.md&#39;) as f:
+    long_description = f.read()
+
+setup(
+    name=&#39;raccroche&#39;,
+    packages=packages,
+    version=&#39;1.0.0&#39;,
+    description=&#39;raccroche demo: Reconstruction of AnCestral COntigs and CHromosomEs&#39;,
+    long_description=long_description,
+    author=&#39;Qiaoji Xu, Lingling Jin&#39;,
+    author_email=&#39;qxu062@uottawa.ca, lingling.jin@cs.usask.ca&#39;,
+    license=&#39;BSD-2-Clause&#39;,
+    platforms=&#39;OS Independent&#39;,
+    package_data={&#39;&#39;: [&#39;LICENSE&#39;]},
+    download_url=&#39;https://github.com/Qiaojilim/raccroche_demo&#39;,
+    url=&#39;https://github.com/Qiaojilim/raccroche_demo&#39;,
+    scripts=scripts,
+    include_package_data=True,
+    install_requires=requires,
+    #tests_require=[&#39;pytest&#39;],
+    #cmdclass={&#39;tests&#39;: PyTest},
+    classifiers=classifiers,
+    python_requires=&#39;&amp;gt;=3&#39;
+)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;strong&gt;Notes&lt;/strong&gt;:&lt;br&gt;
+If you want metadata (from the repository) to be downloaded when anyone installs the package, you should add these through the package_data argument.&lt;/p&gt;
+&lt;h3 id=&#34;generating-distribution-archives&#34;&gt;Generating distribution archives&lt;/h3&gt;
+&lt;p&gt;The next step is to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.&lt;/p&gt;
+&lt;p&gt;Make sure you have the latest versions of setuptools and wheel installed:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;python3 -m pip install --user --upgrade setuptools wheel&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now run this command from the same directory where setup.py is located:&lt;br&gt;
+&lt;code&gt;python3 setup.py sdist bdist_wheel&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This command should output a lot of text and once completed should generate two files in the dist directory:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;dist/
+  example_pkg_YOUR_USERNAME_HERE-0.0.1-py3-none-any.whl
+  example_pkg_YOUR_USERNAME_HERE-0.0.1.tar.gz
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;###Local installation&lt;br&gt;
+In dist folder, decompress the zip &lt;code&gt;example_pkg_YOUR_USERNAME_HERE-0.0.1.tar.gz&lt;/code&gt;&lt;br&gt;
+and &lt;code&gt;cd /this /decompressed /folder /where /the /setup.py /locate&lt;/code&gt;&lt;br&gt;
+run: &lt;code&gt;sudo python3 setup.py install&lt;/code&gt;&lt;br&gt;
+We install it in our local dir &lt;code&gt;/Library/Python/3.8/site-packages&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;References links:&lt;br&gt;
+https://medium.com/free-code-camp/from-a-python-project-to-an-open-source-package-an-a-to-z-guide-c34cb7139a22&lt;br&gt;
+https://www.jianshu.com/p/b19330b9ab14&lt;/p&gt;
+">Publish and Packaging Python project - 1</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/"" data-c="

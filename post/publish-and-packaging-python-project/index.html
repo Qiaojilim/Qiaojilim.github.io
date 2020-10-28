@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
 <meta name="theme-color" content="#000">
-<title>Qiaoji Xu - Lim</title>
+<title>Publish and Packaging Python project - 1 | Qiaoji Xu - Lim</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1603910860033">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,7 +38,8 @@
 
 
 
-  <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
+  <meta name="description" content="Publish and Packaging Python project - 1" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -87,7 +88,7 @@
           
             
             
-            <li class="nav-item nav-item-active">
+            <li class="nav-item ">
               
               
                 <a href="/archives/" target="_self">
@@ -157,10 +158,26 @@
   <div class="main-continer">
     
     <div
-      class="section-layout bg-color mist">
+      class="section-layout mist bg-color">
       <div class="section-layout-wrapper">
-        <div id="sidebarMeta" class="sidebar">
-    
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper  right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body mist" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper ">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -235,110 +252,477 @@
 
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#layout-of-package">Layout of package</a>
+<ul>
+<li><a href="#choose-license">Choose license</a></li>
+<li><a href="#readme-file">README file</a></li>
+<li><a href="#create-a-setuppy-file">Create a Setup.py file</a></li>
+<li><a href="#generating-distribution-archives">Generating distribution archives</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
 </div>
+
 <script>
-  let sidebarMeta = document.querySelector('#sidebarMeta');
-  let scheme = 'mist';
-  let sidebarWrapper = document.querySelector('.sidebar-wrapper');
-  if (sidebarMeta && (scheme === 'pisces' || scheme === 'gemini')) {
-    document.addEventListener('scroll', function(e) {
-      if (document.scrollingElement.scrollTop > parseInt(sidebarMeta.style.marginTop) + 10) {
-        sidebarWrapper.classList.add('home-sidebar-fixed')
-      } else {
-        sidebarWrapper.classList.remove('home-sidebar-fixed')
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
       }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
     });
   }
-  </script>
-        <div class="section-box box-shadow-wrapper">
-          <section class="section archives-section bg-color posts-expand">
-            
 
-<div class="bg-color">
-  <div class="archive-timeline-box">
-    <div class="archive-timeline-title">
-      
-        <h2 class="language" data-lan="archives" data-count="4">非常好！目前共计4篇日志，继续努力！</h2>
-      
-    </div>
-    
-      
-      
-        <div class="node-title">
-          <h2 class="tag-year">2020</h2>
-        </div>    
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
         
-      
-      <a href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              10-26
-              <small>Publish and Packaging Python project - 1</small>
-            </h1>
-          </div>  
       </div>
-      </a>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/">
+      Publish and Packaging Python project - 1
+    </a>
+  </h1>
+  <div class="post-meta">
     
-      
-      
-      <a href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              10-23
-              <small> Access Github with Xcode11 and upload projects</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2020-10-26 22:26:14">2020-10-26</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
     
-      
-      
-      <a href="https://qiaojilim.github.io/post/how-to-install-circos-on-mac-os-system/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              10-11
-              <small>How to install Circos on Mac OS system</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>5<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>682<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
     
-      
-      
-      <a href="https://qiaojilim.github.io/post/How to plot synteny blocks by CIRCOS/">
-        <div class="motion-warpper tag-archive-node">
-          <div class="tag-node">
-            <h1>
-              10-08
-              <small>How to use CIRCOS plot pairwise syteny blocks</small>
-            </h1>
-          </div>  
-      </div>
-      </a>
+    
+    
+    <span id="/post/publish-and-packaging-python-project/" data-flag-title="Publish and Packaging Python project - 1" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
+    </span>
     
   </div>
-  
-<div class="page bg-color">
-  <ul class="pagination-ul">
-    
-    
-      
-        <li class="pagination-li pagination-active">
-            <a href="/archives/page/../">
-              1
-            </a>
-        </li>
-      
-    
-    
-  </ul>
-</div>
-</div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <p>If we want to publish a python software and let other people to use our tool as well, then we need to package our code files and than publish it.</p>
+<h2 id="layout-of-package">Layout of package</h2>
+<p>packaging_tutorial<br>
+|———— LICENSE<br>
+|———— README<br>
+|———— example_pkg<br>
+|     |________   _<em>init _</em>.py<br>
+|———— setup.py<br>
+|———— test<br>
+Once we create this structure, we need to <code>cd packaging_tutorial</code></p>
+<ul>
+<li>Project structure needs to be in place. Usually, the root of the repository contains a folder with the name of the repository — this is where the core project code should be. What’s outside of this folder is the extra code that’s necessary to run and build the package (tests, documentation, etc.)</li>
+<li>The core folder should include one (or more) module(s) and an _<em>init</em>_.py file which imports the classes/functions you’ll want the end user to have access to. This file can also include the version of the package, to make it easily accessible to the end user.</li>
+<li>example_pkg :  _<em>init _</em>.py  files are required to make Python treat directories containing the file as packages. _<em>init</em>_.py can just be an empty file, more info please check :  <a href="https://docs.python.org/3/tutorial/modules.html#packages">python packeges and modules</a></li>
+<li>test folder : containg all unit test files, we can leav it empty now.</li>
+</ul>
+<h3 id="choose-license">Choose license</h3>
+<p>The usual licenses for open sources projects are GNU, MIT, BSD, detalied see <a href="https://choosealicense.com/">License</a></p>
+<h3 id="readme-file">README file</h3>
+<p>A README is a txt file that contains informations which is commonly required to understand what the project is about.  The most common format is <a href="https://en.wikipedia.org/wiki/Markdown">Markdown</a><br>
+I usually use online readme.md editor <a href="https://dillinger.io">Dillinger</a><br>
+Instruction to write a beautiful README.md please check my another article and here is an example of my readme.md<br>
+<a href="https://github.com/Qiaojilim/raccroche_demo">Example of README.md</a></p>
+<h3 id="create-a-setuppy-file">Create a Setup.py file</h3>
+<pre><code>from setuptools import setup
+def parse_requirements(requirements):
+    &quot;&quot;&quot;
+    Returns the list of requirements found in the requirements file
+    &quot;&quot;&quot;
+    with open(requirements, &quot;r&quot;) as req_file:
+        return [l.strip('\n') for l in req_file if l.strip('\n')
+                and not l.startswith('#')]
+#pacages: each folder that with a __init__.py file in its dir, here contigs_alg is a #subofolder under raccroche with __init__.py
+packages = ['raccroche', 'raccroche.contigs_alg'] 
+requires = parse_requirements(&quot;requirements.txt&quot;)
+#scripts 
+scripts = ['bin/raccroche_main'] 
 
-          </section>
+classifiers = [
+    &quot;Environment :: Console&quot;,
+    &quot;Intended Audience :: Science/Research&quot;,
+    &quot;License :: OSI Approved :: BSD License&quot;,
+    &quot;Programming Language :: Python :: 3&quot;,
+    &quot;Operating System :: OS Independent&quot;,
+    &quot;Topic :: Scientific/Engineering :: Bio-Informatics&quot;,
+]
+
+with open('README.md') as f:
+    long_description = f.read()
+
+setup(
+    name='raccroche',
+    packages=packages,
+    version='1.0.0',
+    description='raccroche demo: Reconstruction of AnCestral COntigs and CHromosomEs',
+    long_description=long_description,
+    author='Qiaoji Xu, Lingling Jin',
+    author_email='qxu062@uottawa.ca, lingling.jin@cs.usask.ca',
+    license='BSD-2-Clause',
+    platforms='OS Independent',
+    package_data={'': ['LICENSE']},
+    download_url='https://github.com/Qiaojilim/raccroche_demo',
+    url='https://github.com/Qiaojilim/raccroche_demo',
+    scripts=scripts,
+    include_package_data=True,
+    install_requires=requires,
+    #tests_require=['pytest'],
+    #cmdclass={'tests': PyTest},
+    classifiers=classifiers,
+    python_requires='&gt;=3'
+)
+</code></pre>
+<p><strong>Notes</strong>:<br>
+If you want metadata (from the repository) to be downloaded when anyone installs the package, you should add these through the package_data argument.</p>
+<h3 id="generating-distribution-archives">Generating distribution archives</h3>
+<p>The next step is to generate distribution packages for the package. These are archives that are uploaded to the Package Index and can be installed by pip.</p>
+<p>Make sure you have the latest versions of setuptools and wheel installed:</p>
+<p><code>python3 -m pip install --user --upgrade setuptools wheel</code></p>
+<p>Now run this command from the same directory where setup.py is located:<br>
+<code>python3 setup.py sdist bdist_wheel</code></p>
+<p>This command should output a lot of text and once completed should generate two files in the dist directory:</p>
+<pre><code>dist/
+  example_pkg_YOUR_USERNAME_HERE-0.0.1-py3-none-any.whl
+  example_pkg_YOUR_USERNAME_HERE-0.0.1.tar.gz
+</code></pre>
+<p>###Local installation<br>
+In dist folder, decompress the zip <code>example_pkg_YOUR_USERNAME_HERE-0.0.1.tar.gz</code><br>
+and <code>cd /this /decompressed /folder /where /the /setup.py /locate</code><br>
+run: <code>sudo python3 setup.py install</code><br>
+We install it in our local dir <code>/Library/Python/3.8/site-packages</code></p>
+<p>References links:<br>
+https://medium.com/free-code-camp/from-a-python-project-to-an-open-source-package-an-a-to-z-guide-c34cb7139a22<br>
+https://www.jianshu.com/p/b19330b9ab14</p>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      Qiaoji Xu - Lim
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/" title="Publish and Packaging Python project - 1">https://qiaojilim.github.io/post/publish-and-packaging-python-project/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title=" Access Github with Xcode11 and upload projects" href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/"> Access Github with Xcode11 and upload projects</a>
+        <a class="nav-mobile-next" title=" Access Github with Xcode11 and upload projects" href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+  var gitalk = new Gitalk({
+    clientID: '95aa380754c0be48f91c',
+    clientSecret: 'd33213f16d3c68842d82ff8c0f4e9cafc438acee',
+    repo: 'qiaojilim.github.io',
+    owner: 'qiaojilim',
+    admin: ['qiaojilim'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
+</script>
+    
+    
+  
+
+          </div>
         </div>
       </div>
     </div>
@@ -527,6 +911,253 @@
   }
 
 </script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px;border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
   </div>
 </body>
 
@@ -1303,6 +1934,5 @@ Or check my folder ~/circos/Acorus_anc1/newchr1_aco&lt;br&gt;
   // Using config rendering effect at 'element'.
   const cn = new CanvasNest(document.querySelector('.snow-container'), config);
   </script>
-
 
 </html>
