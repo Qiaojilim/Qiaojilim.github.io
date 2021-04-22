@@ -8,7 +8,7 @@
 <meta name="keywords" content="Gridea静态个人博客">
 <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
 <meta name="theme-color" content="#000">
-<title>How to install Circos on Mac OS system | Qiaoji Xu - Lim</title>
+<title>git: update project on github form local | Qiaoji Xu - Lim</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1619112891115">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -38,8 +38,8 @@
 
 
 
-  <meta name="description" content="How to install Circos on Mac OS system" />
-  <meta name="keywords" content="circos,code notes" />
+  <meta name="description" content="git: update project on github form local" />
+  <meta name="keywords" content="" />
 </head>
 
 <body>
@@ -258,7 +258,16 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#steps-to-install-circos-in-mac-os">Steps to install Circos in Mac OS</a></li>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#what-is-git">What is git?</a></li>
+<li><a href="#createrepository">CreateRepository</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
   </div>
@@ -524,8 +533,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://qiaojilim.github.io/post/how-to-install-circos-on-mac-os-system/">
-      How to install Circos on Mac OS system
+    <a class="post-title-link" href="https://qiaojilim.github.io/post/git-update-project-on-github-form-local/">
+      git: update project on github form local
     </a>
   </h1>
   <div class="post-meta">
@@ -533,42 +542,23 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-10-09 16:44:26">2020-10-09</span>
+      <span class="publish-time" data-t="2020-10-28 08:22:04">2020-10-28</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
-      <i class="fa fa-folder-o"></i>
-      <span class="pc-show language" data-lan="category-in">分类于</span>
-      
-      
-      <a href="https://qiaojilim.github.io/tag/f2Cgtx5tT/">
-        <span>circos</span>
-      </a>、
-      
-      
-      
-      <a href="https://qiaojilim.github.io/tag/eB4F0sw8A/">
-        <span>code notes</span>
-      </a>
-      
-      
-    </span>
-    <span class="post-meta-divider">|</span>
-    
-    <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>247<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1021<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/how-to-install-circos-on-mac-os-system/" data-flag-title="How to install Circos on Mac OS system" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/git-update-project-on-github-form-local/" data-flag-title="git: update project on github form local" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -577,46 +567,35 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <h1 id="steps-to-install-circos-in-mac-os">Steps to install Circos in Mac OS</h1>
-<ul>
-<li>First, from oficial website: https://circos.ca dowload the lastest version of CIRCOS for Mac. And install it in a folder ~/app, if the path of that folder is not in the PATH  of mac then we need to add it to by the instructions of the link below<br>
-https://www.architectryan.com/2012/10/02/add-to-the-path-on-mac-os-x-mountain-lion/</li>
-<li>We can use brew install libpng, libjpeg, freetype, libgd.</li>
-</ul>
-<pre><code>    brew install libpng
-    brew install libjpeg
-    brew install freetype
-    brew install libgd
+              <h3 id="what-is-git">What is git?</h3>
+<p>Git是目前世界上最先进的分布式版本控制系统。<br>
+集中式版本控制系统最大的毛病就是必须联网才能工作，如果在局域网内还好，带宽够大，速度够快，可如果在互联网上，遇到网速慢的话，可能提交一个10M的文件就需要5分钟，这还不得把人给憋死啊。</p>
+<p>那分布式版本控制系统与集中式版本控制系统有何不同呢？首先，分布式版本控制系统根本没有“中央服务器”，每个人的电脑上都是一个完整的版本库，这样，你工作的时候，就不需要联网了，因为版本库就在你自己的电脑上。既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？比方说你在自己电脑上改了文件A，你的同事也在他的电脑上改了文件A，这时，你们俩之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<p>和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。而集中式版本控制系统的中央服务器要是出了问题，所有人都没法干活了。</p>
+<p>在实际使用分布式版本控制系统的时候，其实很少在两人之间的电脑上推送版本库的修改，因为可能你们俩不在一个局域网内，两台电脑互相访问不了，也可能今天你的同事病了，他的电脑压根没有开机。因此，分布式版本控制系统通常也有一台充当“中央服务器”的电脑，但这个服务器的作用仅仅是用来方便“交换”大家的修改，没有它大家也一样干活，只是交换修改不方便而已。<br>
+###Installation<br>
+在Mac OS X上安装Git</p>
+<p>如果你正在使用Mac做开发，有两种安装Git的方法。</p>
+<p>一是安装homebrew，然后通过homebrew安装Git，具体方法请参考homebrew的文档：http://brew.sh/。</p>
+<p>第二种方法更简单，也是推荐的方法，就是直接从AppStore安装Xcode，Xcode集成了Git，不过默认没有安装，你需要运行Xcode，选择菜单“Xcode”-&gt;“Preferences”，在弹出窗口中找到“Downloads”，选择“Command Line Tools”，点“Install”就可以完成安装了。</p>
+<p>安装完成后，还需要最后一步设置，在命令行输入：</p>
+<p>$ git config --global user.name &quot;Your Name&quot;<br>
+$ git config --global user.email &quot;email@example.com&quot;<br>
+因为Git是分布式版本控制系统，所以，每个机器都必须自报家门：你的名字和Email地址。你也许会担心，如果有人故意冒充别人怎么办？这个不必担心，首先我们相信大家都是善良无知的群众，其次，真的有冒充的也是有办法可查的。</p>
+<p>注意git config命令的--global参数，用了这个参数，表示你这台机器上所有的Git仓库都会使用这个配置，当然也可以对某个仓库指定不同的用户名和Email地址。</p>
+<h3 id="createrepository">CreateRepository</h3>
+<pre><code>$ mkdir demogit
+$ cd demogit
+$ pwd
+/Users/qiaoji/demogit
 </code></pre>
-<ul>
-<li>Test and install missing parts of perl moudles<br>
-<code>circos -modules</code><br>
-&quot; missing            Font::TTF::Font &quot;<br>
-This mean we do not have Font::TTF::Font  module so we need to install all missing modules by:</li>
-</ul>
-<pre><code>    sudo cpan
-    cpan[1]&gt; install Config::General
-    cpan[2]&gt; install Font::TTF::Font
-    ...
-    cpan[*]&gt; exit 
+<pre><code>$ git init
 </code></pre>
-<p>But we may missing module GD and GD::Polyline so that we can install it manaually by:<br>
-wget http://search.cpan.org/CPAN/authors/id/L/LD/LDS/GD-2.51.tar.gz</p>
-<pre><code>   tar xfvz ./GD-2.51.tar.gz
-   cd GD-2.51/
-   perl Makefile.PL    
-   make
-   sudo make install
-</code></pre>
-<p>In the end we test the sample of circos by:</p>
-<pre><code>   cd ~/Software/circos/current/example
-   ./run
-   open circos.png
-</code></pre>
-<p>If we get a nice pic then this means we install it successfully!</p>
-<figure data-type="image" tabindex="1"><img src="https://qiaojilim.github.io/post-images/1602883560231.png" alt="" loading="lazy"></figure>
-<p>reference link: https://www.jianshu.com/p/d1715b25f9d1<br>
-https://kylase.github.io/CircosAPI/os-x-installation-guide/</p>
+<p>Initialized empty Git repository in /Users/michael/learngit/.git/</p>
+<p>瞬间Git就把仓库建好了，而且告诉你是一个空的仓库（empty Git repository），细心的读者可以发现当前目录下多了一个.git的目录，这个目录是Git来跟踪管理版本库的，没事千万不要手动修改这个目录里面的文件，不然改乱了，就把Git仓库给破坏了。</p>
+<p>如果没有看到， 因为这个是隐藏文件<br>
+需要打开Mac显示隐藏的文件夹功能<br>
+终端中执行：<code>defaults write com.apple.finder AppleShowAllFiles -bool true</code></p>
 
             </div>
             
@@ -629,7 +608,7 @@ https://kylase.github.io/CircosAPI/os-x-installation-guide/</p>
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://qiaojilim.github.io/post/how-to-install-circos-on-mac-os-system/" title="How to install Circos on Mac OS system">https://qiaojilim.github.io/post/how-to-install-circos-on-mac-os-system/</a>
+      <a href="https://qiaojilim.github.io/post/git-update-project-on-github-form-local/" title="git: update project on github form local">https://qiaojilim.github.io/post/git-update-project-on-github-form-local/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -638,23 +617,19 @@ https://kylase.github.io/CircosAPI/os-x-installation-guide/</p>
   </ul>
   <div class="tags">
     
-      <a href="https://qiaojilim.github.io/tag/f2Cgtx5tT/"># circos</a>
-    
-      <a href="https://qiaojilim.github.io/tag/eB4F0sw8A/"># code notes</a>
-    
   </div>
   <div class="nav">
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title=" Access Github with Xcode11 and upload projects" href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/"> Access Github with Xcode11 and upload projects</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title=" Access Github with Xcode11 and upload projects" href="https://qiaojilim.github.io/post/how-to-access-github-with-xcode11-and-upload-projects/">上一篇</a>
+        <a class="nav-pc-next" title="Git to publish a project and update from local" href="https://qiaojilim.github.io/post/git-to-publish-a-project-and-update-later/">Git to publish a project and update from local</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Git to publish a project and update from local" href="https://qiaojilim.github.io/post/git-to-publish-a-project-and-update-later/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="How to use CIRCOS plot pairwise syteny blocks" href="https://qiaojilim.github.io/post/How to plot synteny blocks by CIRCOS/">How to use CIRCOS plot pairwise syteny blocks</a>
-        <a class="nav-mobile-next" title="How to use CIRCOS plot pairwise syteny blocks" href="https://qiaojilim.github.io/post/How to plot synteny blocks by CIRCOS/">下一篇</a>
+        <a class="nav-pc-next" title="Publish and Packaging Python project - 1" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/">Publish and Packaging Python project - 1</a>
+        <a class="nav-mobile-next" title="Publish and Packaging Python project - 1" href="https://qiaojilim.github.io/post/publish-and-packaging-python-project/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
