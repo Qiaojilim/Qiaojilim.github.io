@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://qiaojilim.github.io</id>
     <title>Qiaoji Xu - Lim</title>
-    <updated>2021-07-21T12:56:21.674Z</updated>
+    <updated>2024-03-21T00:41:29.335Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://qiaojilim.github.io"/>
     <link rel="self" href="https://qiaojilim.github.io/atom.xml"/>
     <subtitle>Welcome to Qiaoji Xu&apos;s blog website</subtitle>
     <logo>https://qiaojilim.github.io/images/avatar.png</logo>
     <icon>https://qiaojilim.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Qiaoji Xu - Lim</rights>
+    <rights>All rights reserved 2024, Qiaoji Xu - Lim</rights>
     <entry>
         <title type="html"><![CDATA[Git to publish a project and update from local]]></title>
         <id>https://qiaojilim.github.io/post/git-to-publish-a-project-and-update-later/</id>
