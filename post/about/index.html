@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
 <meta name="theme-color" content="#000">
 <title>CV | Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1710982643421">
+<link rel="shortcut icon" href="/favicon.ico?v=1710982730679">
 <link rel="stylesheet" href="/media/css/mist.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -415,54 +415,28 @@ Given the phylogenetic relationships of several species, the reconstruction of t
             
             
             
-  <script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<div id="vcomments" style="padding: 10px 0px 0px 0px"></div>
+  
+    
+      <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
 
-<style>
-  .v .veditor {
-    min-height: 10rem;
-    background-image: url('');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    background-color: rgba(255, 255, 255, 0);
-    resize: none;
-  }
+<div id="gitalk-container"></div>
 
-  .v .vwrap {
-    border: 1px solid #000 !important;
-  }
-
-  .v .vbtn {
-    padding: .4rem 1.2rem !important;
-    border-color: #fff !important;
-    background-color: #49b1f5 !important;
-    color: #fff !important;
-    font-size: .7rem !important;
-  }
-
-  .v .vcards .vcard .vh .vmeta .vat {
-    padding: 0 .8rem !important;
-    border: 1px solid #00c4b6 !important;
-    border-radius: 5px !important;
-    color: #00c4b6 !important;
-  }
-</style>
 <script>
-  new Valine({
-    el: '#vcomments',
-    appId: '',
-    appKey: '',
-    avatar: 'identicon',
-    placeholder: '',
-    pageSize: '',
-    lang: 'en',
-    enableQQ: 'true' === 'false',
-    visitor: 'true' === 'true',
-    highlight: 'true' === 'true',
-    avatarForce: 'true' === 'false',
-  });
+  var gitalk = new Gitalk({
+    clientID: '95aa380754c0be48f91c',
+    clientSecret: 'd33213f16d3c68842d82ff8c0f4e9cafc438acee',
+    repo: 'qiaojilim.github.io',
+    owner: 'qiaojilim',
+    admin: ['qiaojilim'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+  gitalk.render('gitalk-container')
 </script>
+    
+    
+  
 
           </div>
         </div>
