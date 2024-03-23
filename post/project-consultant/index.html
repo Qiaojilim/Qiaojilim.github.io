@@ -9,7 +9,7 @@
 <meta name="description" content="Welcome to Qiaoji Xu&#39;s blog website">
 <meta name="theme-color" content="#000">
 <title>What I offer? | Qiaoji Xu - Lim</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1711213008917">
+<link rel="shortcut icon" href="/favicon.ico?v=1711215394523">
 <link rel="stylesheet" href="/media/css/gemini.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -203,7 +203,8 @@
       <div class="sidebar-body gemini" id="sidebar_body">
         
           
-            
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -276,6 +277,201 @@
   </div>
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#project-consultancy">Project Consultancy:</a></li>
+<li><a href="#career-mock-interviews-and-coaching">Career Mock Interviews and Coaching:</a></li>
+<li><a href="#pease-click-here-for-booking-an-appointment-to-figure-your-questions-together-make-sure-you-pay-within-12-hours-once-make-the-appointment">Pease click here for booking an appointment to figure your questions together! ( Make sure you pay within 12 hours once make the appointment )</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
           
         
       </div>
@@ -372,18 +568,18 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2024-03-20 21:55:49">2024-03-20</span>
+      <span class="publish-time" data-t="2024-03-18 21:55:49">2024-03-18</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1<span class="language" data-lan="minute">分钟</span></span>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>14<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>218<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
@@ -397,17 +593,14 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <ol>
-<li>
-<p>Mock Interview<br>
-https://calendly.com/limqiaojixu/30min</p>
-</li>
-<li>
-<p>Project Consult<br>
-<a href="https://calendly.com/limqiaojixu/30min">click</a></p>
-</li>
-</ol>
-<p>'3. AI/DS Courses)'</p>
+              <h3 id="project-consultancy">Project Consultancy:</h3>
+<p>Charges: This is project based charges and really depends on project complexity. P lease send an email to limqiaojixu@gmail.com for further discussion.</p>
+<p>Leveraging my deep-seated knowledge and diverse experience, I offer consultancy services that encompass the entire lifecycle of AI and data science projects. From conceptualization to deployment, I ensure that your projects are built on solid mathematical and statistical foundations, optimized for efficiency, and tailored to meet your strategic goals. Whether it’s streamlining operations, enhancing decision-making processes, or unlocking new opportunities through predictive modeling, my consultancy services are designed to transform your data into actionable insights and tangible outcomes.</p>
+<h3 id="career-mock-interviews-and-coaching">Career Mock Interviews and Coaching:</h3>
+<p>Charges: 200$/hour (tax included)</p>
+<p>Drawing on my extensive background and industry insights, I provide comprehensive career coaching services, specializing in AI and data science roles. This includes personalized mock interviews, from resume review to the final interview stage, offering constructive feedback and strategic advice to navigate the competitive job market successfully. My coaching is grounded in real-world expectations and tailored to help you showcase your strengths, address potential weaknesses, and communicate your value effectively to prospective employers.</p>
+<h3 id="pease-click-here-for-booking-an-appointment-to-figure-your-questions-together-make-sure-you-pay-within-12-hours-once-make-the-appointment">Pease <a href="https://calendly.com/limqiaojixu/60minutes">click</a> here for booking an appointment to figure your questions together! ( Make sure you pay within 12 hours once make the appointment )</h3>
+<p>How to pay? <a href="%5Chow-to-pay">click</a></p>
 
             </div>
             
@@ -943,18 +1136,30 @@ https://calendly.com/limqiaojixu/30min</p>
     <div class="result" id="result">
       
       <div class="item">
-        <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/project-consultant/"" data-c="
+        <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/how-to-pay/"" data-c="
           &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;Mock Interview&lt;br&gt;
-https://calendly.com/limqiaojixu/30min&lt;/p&gt;
+&lt;p&gt;CAD dollar e-trans to :&lt;br&gt;
+limqiaojixu@gmail.com&lt;br&gt;
+Qiaoji Xu&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Project Consult&lt;br&gt;
-&lt;a href=&#34;https://calendly.com/limqiaojixu/30min&#34;&gt;click&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Other payments, please contact with limqiaojixu@gmail.com&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;&#39;3. AI/DS Courses)&#39;&lt;/p&gt;
+">How to pay</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://qiaojilim.github.io/post/project-consultant/"" data-c="
+          &lt;h3 id=&#34;project-consultancy&#34;&gt;Project Consultancy:&lt;/h3&gt;
+&lt;p&gt;Charges: This is project based charges and really depends on project complexity. P lease send an email to limqiaojixu@gmail.com for further discussion.&lt;/p&gt;
+&lt;p&gt;Leveraging my deep-seated knowledge and diverse experience, I offer consultancy services that encompass the entire lifecycle of AI and data science projects. From conceptualization to deployment, I ensure that your projects are built on solid mathematical and statistical foundations, optimized for efficiency, and tailored to meet your strategic goals. Whether it’s streamlining operations, enhancing decision-making processes, or unlocking new opportunities through predictive modeling, my consultancy services are designed to transform your data into actionable insights and tangible outcomes.&lt;/p&gt;
+&lt;h3 id=&#34;career-mock-interviews-and-coaching&#34;&gt;Career Mock Interviews and Coaching:&lt;/h3&gt;
+&lt;p&gt;Charges: 200$/hour (tax included)&lt;/p&gt;
+&lt;p&gt;Drawing on my extensive background and industry insights, I provide comprehensive career coaching services, specializing in AI and data science roles. This includes personalized mock interviews, from resume review to the final interview stage, offering constructive feedback and strategic advice to navigate the competitive job market successfully. My coaching is grounded in real-world expectations and tailored to help you showcase your strengths, address potential weaknesses, and communicate your value effectively to prospective employers.&lt;/p&gt;
+&lt;h3 id=&#34;pease-click-here-for-booking-an-appointment-to-figure-your-questions-together-make-sure-you-pay-within-12-hours-once-make-the-appointment&#34;&gt;Pease &lt;a href=&#34;https://calendly.com/limqiaojixu/60minutes&#34;&gt;click&lt;/a&gt; here for booking an appointment to figure your questions together! ( Make sure you pay within 12 hours once make the appointment )&lt;/h3&gt;
+&lt;p&gt;How to pay? &lt;a href=&#34;%5Chow-to-pay&#34;&gt;click&lt;/a&gt;&lt;/p&gt;
 ">What I offer?</a>
       </div>
       
@@ -1175,20 +1380,16 @@ https://kylase.github.io/CircosAPI/os-x-installation-guide/&lt;/p&gt;
           &lt;p&gt;&lt;strong&gt;Qiaoji Xu&lt;/strong&gt;&lt;br&gt;
 🏠 Toronto, Canada&lt;br&gt;
 📬 limqiaojixu@gmail.com&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Profile&lt;/strong&gt;&lt;br&gt;
-As a forward-thinking AI/Data Science Consultant and Entrepreneur, I leverage a robust Ph.D. background in Mathematics and Statistics with over 5 years of multifaceted experience across finance and engineering sectors.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Profile&lt;/strong&gt;🏅🏆🎖&lt;br&gt;
+As a forward-thinking AI/Data Science Consultant and Entrepreneur, I leverage a robust Ph.D. background in Mathematics and Statistics with over  years of multifaceted experience across finance and engineering sectors.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Why Choose Qiaoji&#39;s Consultant?&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;I am a distinguished AI/Data Science Consultant and Entrepreneur with a solid foundation in Mathematics and Statistics, backed by a Ph.D. and over five years of experience across finance and engineering sectors. My expertise is not just on research; it&#39;s been tested and honed in the real world, addressing complex problems through advanced module and pipeline development, statistical analysis, risk management, and algorithmic optimization. Proficient in Python, R, and Machine Learning technologies, I am adept at managing and interpreting large datasets. What sets me apart is my entrepreneurial spirit, fueled by a passion for inventing cutting-edge algorithms and predictive models that go beyond solving problems to significantly enhancing business performance and strategic direction.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;What I Offer:&lt;br&gt;
-Please click the &lt;a href=&#34;https://qiaojilim.github.io/post/project-consultant&#34;&gt;Services&lt;/a&gt; for book an appointment!&lt;br&gt;
-##Project Consultancy:&lt;br&gt;
-Leveraging my deep-seated knowledge and diverse experience, I offer consultancy services that encompass the entire lifecycle of AI and data science projects. From conceptualization to deployment, I ensure that your projects are built on solid mathematical and statistical foundations, optimized for efficiency, and tailored to meet your strategic goals. Whether it’s streamlining operations, enhancing decision-making processes, or unlocking new opportunities through predictive modeling, my consultancy services are designed to transform your data into actionable insights and tangible outcomes.&lt;/li&gt;
+Please click the &lt;a href=&#34;http://localhost:4000/post/project-consultant/&#34;&gt;Services&lt;/a&gt; for book an appointment!&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;career-mock-interviews-and-coaching&#34;&gt;Career Mock Interviews and Coaching&lt;/h2&gt;
-&lt;p&gt;Drawing on my extensive background and industry insights, I provide comprehensive career coaching services, specializing in AI and data science roles. This includes personalized mock interviews, from resume review to the final interview stage, offering constructive feedback and strategic advice to navigate the competitive job market successfully. My coaching is grounded in real-world expectations and tailored to help you showcase your strengths, address potential weaknesses, and communicate your value effectively to prospective employers.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;EDUCATION&lt;/strong&gt;&lt;br&gt;
 2019 - 2023&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mtext&gt;     &lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;~~~~~&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;PhD, Science, Statistics, University of Ottawa, Canada        &lt;br&gt;&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mtext&gt;                         &lt;/mtext&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;~~~~~~~~~~~~~~~~~~~~~~~~~&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0em;vertical-align:0em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;span class=&#34;mspace nobreak&#34;&gt; &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Professional Experience&lt;/strong&gt;&lt;br&gt;
